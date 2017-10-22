@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+import datetime
 # Create your models here.
 
 class recipe(models.Model):
@@ -11,8 +11,8 @@ class recipe(models.Model):
     viewcount=models.IntegerField(null=True)
     likes=models.IntegerField(null=True)
     dislikes=models.IntegerField(null=True)
-    created_at = models.DateField()
-    updated_at = models.DateField()
+    created_at = models.DateTimeField(default=datetime.datetime.now())
+    updated_at = models.DateTimeField(null=True)
 
 class ingredients(models.Model):
     user=models.ForeignKey(User)

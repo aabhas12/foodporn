@@ -15,8 +15,11 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+from foodshare import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^recipesave/',views.Recipe.as_view()),
+    url(r'^getrecipe/(?P<pk>[0-9]+)/$',views.GetRecipe)
 
 ]
