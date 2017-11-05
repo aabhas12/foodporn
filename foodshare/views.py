@@ -25,14 +25,6 @@ class Recipe(APIView):
             else:
                 return Response(data=serialize.data, status=status.HTTP_404_NOT_FOUND)
 
-
-
-def GetRecipe(request,pk):
-    if request.method == 'GET':
-        recipe_all = recipe.objects.get(id=pk)
-        serialize = RecipegetSerializer(recipe_all)
-        return JsonResponse(serialize.data)
-
 class updaterecipe(APIView):
     def put(self,request,pk):
         recipe_all = recipe.objects.get(id=pk)
@@ -49,6 +41,6 @@ class updaterecipe(APIView):
         return Response(data=None,status=status.HTTP_200_OK)
 
     def get(self,request,pk):
-        recipe_all = recipe.objects.get(id=pk)
-        serialize = RecipeSerializer(data=recipe_all,many=True)
+        recipe_all = recipe.objects.get(pk=pk)
+        serialize = RecipegetSerializer(recipe_all)
         return Response(serialize.data)
