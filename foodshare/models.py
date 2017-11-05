@@ -15,13 +15,13 @@ class recipe(models.Model):
     updated_at = models.DateTimeField(null=True)
 
 class ingredients(models.Model):
-    recipe = models.ForeignKey(recipe,related_name='recipes_ingredients')
+    recipe = models.ForeignKey(recipe,related_name='recipes_ingredients',on_delete=models.CASCADE)
     ingredient=models.CharField(max_length=75)
     quantity=models.FloatField()
 
 
 class instructions(models.Model):
-    recipe = models.ForeignKey(recipe,related_name='recipes_instructions')
+    recipe = models.ForeignKey(recipe,related_name='recipes_instructions',on_delete=models.CASCADE)
     step = models.CharField(max_length=300)
     image = models.ImageField(null=True)
     created_at = models.DateField(default=datetime.datetime.now())

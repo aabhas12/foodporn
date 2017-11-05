@@ -36,10 +36,19 @@ def GetRecipe(request,pk):
 class updaterecipe(APIView):
     def put(self,request,pk):
         recipe_all = recipe.objects.get(id=pk)
-        # serialize = RecipegetSerializer(recipe_all)
         serialize1 = RecipeSerializer(data=request.data)
         if serialize1.is_valid():
             serialize1.update(validated_data=request.data,instance=recipe_all)
             return Response(data=None, status=status.HTTP_201_CREATED)
         else:
             return Response(data=serialize1.data, status=status.HTTP_404_NOT_FOUND)
+
+    def delete(self,request,pk):
+        recipe_all = recipe.objects.get(id=pk)
+        recipe_all.delete()
+        return Response(data=None,status=status.HTTP_200_OK)
+
+    def get(self,request,pk):
+        recipe_all = recipe.objects.get(id=pk)
+        serialize = RecipeSerializer(data=recipe_all,many=True)
+        return Response(serialize.data)
