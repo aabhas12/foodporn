@@ -15,22 +15,18 @@ class recipe(models.Model):
     updated_at = models.DateTimeField(null=True)
 
 class ingredients(models.Model):
-    user=models.ForeignKey(User)
-    recipe=models.ForeignKey(recipe)
+    recipe = models.ForeignKey(recipe,related_name='recipes_ingredients')
     ingredient=models.CharField(max_length=75)
     quantity=models.FloatField()
 
 
 class instructions(models.Model):
-    user = models.ForeignKey(User)
-    recipe = models.ForeignKey(recipe)
-    step = models.TextField()
-    created_at = models.DateField()
-    updated_at = models.DateField()
+    recipe = models.ForeignKey(recipe,related_name='recipes_instructions')
+    step = models.CharField(max_length=300)
+    image = models.ImageField(null=True)
+    created_at = models.DateField(default=datetime.datetime.now())
+    updated_at = models.DateField(null=True)
 
-class instructionimage(models.Model):
-    instruction = models.ForeignKey(instructions)
-    image = models.URLField(null=True)
 
 class recipevideo(models.Model):
     user = models.ForeignKey(User)

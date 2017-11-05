@@ -20,6 +20,7 @@ from foodshare import views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^recipesave/',views.Recipe.as_view()),
+    url(r'^recipeupdate/(?P<pk>[0-9]+)/$',views.updaterecipe.as_view()),
     url(r'^getrecipe/(?P<pk>[0-9]+)/$',views.GetRecipe)
 
 ]
