@@ -1,12 +1,14 @@
 from django.db import models
 
 # Create your models here.
-
-from django.contrib.auth.models import User
+from django.conf import settings
+from django.contrib.auth import get_user_model
 import datetime
 
+
+
 class recipe(models.Model):
-    user=models.ForeignKey(User)
+    user=models.ForeignKey(settings.AUTH_USER_MODEL)
     title=models.CharField(max_length=250)
     time=models.FloatField()
     servings=models.IntegerField()
@@ -32,12 +34,12 @@ class instructions(models.Model):
 
 
 class recipevideo(models.Model):
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL)
     recipe = models.ForeignKey(recipe)
     video=models.URLField(null=True)
 
 class comment(models.Model):
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL)
     recipe = models.ForeignKey(recipe)
     comment = models.CharField(max_length=160)
     likes = models.IntegerField()
@@ -45,7 +47,7 @@ class comment(models.Model):
     updated_at = models.DateField()
 
 class replycomment(models.Model):
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL)
     comment = models.ForeignKey(comment)
     reply = models.CharField(max_length=160)
     likes = models.IntegerField
