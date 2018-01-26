@@ -11,41 +11,31 @@ from app.serializers import RecipeSerializer, RecipegetSerializer, IngredientsSe
 from rest_framework import status
 from app.models import recipe,ingredients,instructions
 from django.db import transaction
+from rest_framework import mixins
+from rest_framework import generics
 
 
+class Recipe(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.RetrieveModelMixin, generics.GenericAPIView):
+    queryset = recipe.objects.all()
+    serializer_class = RecipegetSerializer
 
-class Recipe(APIView):
-    def get(self,request):
-        recipe_all = recipe.objects.all()
-        serialize = RecipegetSerializer(recipe_all,many=True)
-        return Response(serialize.data)
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
 
-    def post(self,request):
-            serialize = RecipeSerializer(data=request.data)
-            print(serialize)
-            if serialize.is_valid():
-                serialize.save()
-                return Response(data=serialize.data, status=status.HTTP_201_CREATED)
-            else:
-                return Response(data=serialize.data, status=status.HTTP_404_NOT_FOUND)
+    serializer_class = RecipeSerializer
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
 
-class updaterecipe(APIView):
-    def put(self,request,pk):
-        recipe_all = recipe.objects.get(id=pk)
-        serialize1 = RecipeSerializer(data=request.data)
-        print(serialize1)
-        if serialize1.is_valid():
-            serialize1.update(validated_data=request.data,instance=recipe_all)
-            return Response(data=serialize1.data, status=status.HTTP_201_CREATED)
-        else:
-            return Response(data=serialize1.data, status=status.HTTP_404_NOT_FOUND)
 
-    def delete(self,request,pk):
-        recipe_all = recipe.objects.get(id=pk)
-        recipe_all.delete()
-        return Response(data=None,status=status.HTTP_200_OK)
+class updaterecipe(mixins.RetrieveModelMixin, mixins.DestroyModelMixin, mixins.UpdateModelMixin ,generics.GenericAPIView):
+    queryset = recipe.objects.all()
+    serializer_class = RecipeSerializer
 
-    def get(self,request,pk):
-        recipe_all = recipe.objects.get(pk=pk)
-        serialize = RecipegetSerializer(recipe_all)
-        return Response(serialize.data)
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)
+
+    def delete(self, request, *args, **kwargs):
+        return self.destroy(request, *args, **kwargs)

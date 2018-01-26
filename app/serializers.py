@@ -34,7 +34,6 @@ class RecipeSerializer(serializers.ModelSerializer):
         return recipe1
 
     def update(self, instance, validated_data):
-        print(validated_data)
         instance.title = validated_data['title']
         instance.time = validated_data['time']
         instance.Servings = validated_data['servings']
