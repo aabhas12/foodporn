@@ -18,7 +18,9 @@ from django.contrib import admin
 from app import views
 
 urlpatterns = [
-    url(r'^recipesave/',views.Recipe.as_view()),
-    url(r'^recipeupdate/(?P<pk>[0-9]+)/$',views.updaterecipe.as_view()),
+    url(r'^recipeupdate/(?P<pk>[0-9]+)/$',views.UpdateRecipe.as_view()),
+    url(r'^recipeupdate/$',views.UpdateRecipe.as_view()),
+    url(r'^recipecomment/(?P<pk>[0-9]+)/$',views.StoreComment.as_view()),
+    url(r'^recipereplycomment/(?P<pk>[0-9]+)/$', views.ReplyCommentStore.as_view()),
 
 ]

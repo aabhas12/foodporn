@@ -7,50 +7,61 @@ import datetime
 
 
 
-class recipe(models.Model):
-    user=models.ForeignKey(settings.AUTH_USER_MODEL)
-    title=models.CharField(max_length=250)
-    time=models.FloatField()
-    servings=models.IntegerField()
+class Recipe(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL)
+    title = models.CharField(max_length=250)
+    time = models.FloatField()
+    servings = models.IntegerField()
     icon = models.ImageField(null=True)
-    viewcount=models.IntegerField(null=True)
-    likes=models.IntegerField(null=True)
-    dislikes=models.IntegerField(null=True)
+    viewcount = models.IntegerField(null=True)
+    likes = models.IntegerField(null=True)
+    dislikes = models.IntegerField(null=True)
     created_at = models.DateTimeField(default=datetime.datetime.now())
     updated_at = models.DateTimeField(null=True)
 
-class ingredients(models.Model):
-    recipe = models.ForeignKey(recipe,related_name='recipes_ingredients',on_delete=models.CASCADE)
-    ingredient=models.CharField(max_length=75)
-    quantity=models.FloatField()
+    def get_comments(self):
+        return self.comment_set.all()
+
+class Ingredients(models.Model):
+    recipe = models.ForeignKey(Recipe, related_name='recipes_ingredients',on_delete=models.CASCADE)
+    ingredient = models.CharField(max_length=75)
+    quantity = models.FloatField()
 
 
-class instructions(models.Model):
-    recipe = models.ForeignKey(recipe,related_name='recipes_instructions',on_delete=models.CASCADE)
+class Instructions(models.Model):
+    recipe = models.ForeignKey(Recipe, related_name='recipes_instructions',on_delete=models.CASCADE)
     step = models.CharField(max_length=300)
     image = models.ImageField(null=True)
     created_at = models.DateField(default=datetime.datetime.now())
     updated_at = models.DateField(null=True)
 
 
-class recipevideo(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL)
-    recipe = models.ForeignKey(recipe)
-    video=models.URLField(null=True)
+class RecipeVideo(models.Model):
+    recipe = models.ForeignKey(Recipe, related_name='recipe_video')
+    video = models.CharField(max_length=250, null=True, blank=True)
 
-class comment(models.Model):
+class Comment(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
-    recipe = models.ForeignKey(recipe)
+    recipe = models.ForeignKey(Recipe)
     comment = models.CharField(max_length=160)
-    likes = models.IntegerField()
-    created_at = models.DateField()
-    updated_at = models.DateField()
+    likes = models.IntegerField(default=0)
+    created_at = models.DateField(default=datetime.datetime.now())
+    updated_at = models.DateField(default=datetime.datetime.now())
 
-class replycomment(models.Model):
+    def reply_comment(self):
+        return self.replycomment_set.all()
+
+
+class ReplyComment(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
-    comment = models.ForeignKey(comment)
+    comment = models.ForeignKey(Comment, related_name='reply_comment')
     reply = models.CharField(max_length=160)
-    likes = models.IntegerField
-    created_at = models.DateField()
-    updated_at = models.DateField()
+    likes = models.IntegerField(default=0)
+    created_at = models.DateField(default=datetime.datetime.now())
+    updated_at = models.DateField(default=datetime.datetime.now())
+
+
+class UserCommentLike(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL)
+    comment = models.ForeignKey(Comment, related_name='reply_comment_boolean')
 
