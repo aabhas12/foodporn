@@ -13,7 +13,7 @@ class Recipe(models.Model):
     time = models.FloatField()
     servings = models.IntegerField()
     icon = models.ImageField(null=True)
-    viewcount = models.IntegerField(null=True)
+    viewcount = models.ForeignKey(ViewCount)
     likes = models.IntegerField(null=True)
     dislikes = models.IntegerField(null=True)
     created_at = models.DateTimeField(default=datetime.datetime.now())
@@ -21,6 +21,12 @@ class Recipe(models.Model):
 
     def get_comments(self):
         return self.comment_set.all()
+
+
+class ViewCount(models.Model):
+    ipaddress = models.CharField(max_length=30)
+    viewed = models.BooleanField(default=False)
+
 
 class Ingredients(models.Model):
     recipe = models.ForeignKey(Recipe, related_name='recipes_ingredients',on_delete=models.CASCADE)
