@@ -1,6 +1,5 @@
 from rest_framework import serializers
-from app.models import Recipe, Instructions, Ingredients, RecipeVideo, Comment , ReplyComment
-
+from Recipe.models import Recipe, Instructions, Ingredients, RecipeVideo
 
 
 class InstructionsSerializer(serializers.ModelSerializer):
@@ -22,24 +21,6 @@ class VideoSerializer(serializers.ModelSerializer):
     class Meta:
         model = RecipeVideo
         fields = 'video',
-
-class ReplyCommentSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = ReplyComment
-        fields = '__all__'
-
-    def update(self, instance, validated_data):
-        instance.reply = validated_data['reply']
-        instance.save()
-
-
-class CommentSerializer(serializers.ModelSerializer):
-    reply_comment = ReplyCommentSerializer(many=True)
-
-    class Meta:
-        model = Comment
-        fields = ('user', 'comment', 'likes', 'reply_comment')
 
 
 class RecipeSerializer(serializers.ModelSerializer):

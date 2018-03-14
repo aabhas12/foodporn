@@ -38,8 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'foodshare',
-    'app',
+    'User.apps.UserConfig',
+    'Recipe',
+    'Comments',
 ]
 
 MIDDLEWARE = [
@@ -103,7 +104,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-AUTH_USER_MODEL = 'foodshare.Users'
+AUTH_USER_MODEL = 'User.Users'
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/

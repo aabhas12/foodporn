@@ -15,8 +15,8 @@ class Users(AbstractUser):
     updated_at = models.DateTimeField(null=True, blank=True)
 
 class UsersAssociations(models.Model):
-    main_user = models.ForeignKey(Users, related_name='first_user')
-    follow_user = models.ForeignKey(Users, related_name='second_user')
+    main_user = models.ForeignKey(Users, related_name='first_user', on_delete=models.CASCADE)
+    follow_user = models.ForeignKey(Users, related_name='second_user',  on_delete=models.CASCADE)
 
     def get_follow_user_count(self):
         return UsersAssociations.objects.filter(main_user=self).count()

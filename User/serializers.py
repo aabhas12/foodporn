@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from foodshare.models import Users
+from User.models import Users
 import datetime
 
 
