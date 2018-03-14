@@ -8,7 +8,8 @@ from Comments.models import Comment, ReplyComment
 from Comments.serializers import CommentSerializer, ReplyCommentSerializer
 
 
-class StoreComment(mixins.CreateModelMixin, generics.GenericAPIView):
+class StoreComment(mixins.CreateModelMixin, mixins.ListModelMixin, mixins.RetrieveModelMixin, mixins.UpdateModelMixin,
+                   generics.GenericAPIView):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
 
