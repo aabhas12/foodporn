@@ -18,7 +18,8 @@ from django.contrib import admin
 from Comments import views
 
 urlpatterns = [
-    url(r'^recipecomment/(?P<pk>[0-9]+)/$',views.StoreComment.as_view()),
+    url(r'^recipecomment/$',views.StoreComment.as_view()),
     url(r'^recipereplycomment/(?P<pk>[0-9]+)/$', views.ReplyCommentStore.as_view()),
+    url(r'^getcomment/(?P<pk>[0-9]+)/$', views.GetComment.as_view()),
 
 ]

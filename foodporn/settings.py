@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'User.apps.UserConfig',
     'Recipe',
     'Comments',
+    'django_filters',
 ]
 
 MIDDLEWARE = [

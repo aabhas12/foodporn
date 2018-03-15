@@ -15,10 +15,16 @@ class ReplyCommentSerializer(serializers.ModelSerializer):
 
 
 class CommentSerializer(serializers.ModelSerializer):
+    # reply_comment = ReplyCommentSerializer(many=True)
+
+    class Meta:
+        model = Comment
+        fields = ('user', 'comment', 'recipe', 'likes')
+
+class GetCommentSerializer(serializers.ModelSerializer):
     reply_comment = ReplyCommentSerializer(many=True)
 
     class Meta:
         model = Comment
-        fields = ('user', 'comment', 'likes', 'reply_comment')
-
+        fields = ('user', 'comment', 'recipe', 'likes', 'reply_comment')
 
