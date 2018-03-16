@@ -1,17 +1,13 @@
 from rest_framework import serializers
 
-from Comments.models import ReplyComment, Comment
+from comments.models import ReplyComment, Comment
 
 
 class ReplyCommentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ReplyComment
-        fields = '__all__'
-
-    def update(self, instance, validated_data):
-        instance.reply = validated_data['reply']
-        instance.save()
+        fields = ('user', 'comment', 'reply', 'likes', 'created_at')
 
 
 class CommentSerializer(serializers.ModelSerializer):
@@ -19,7 +15,7 @@ class CommentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Comment
-        fields = ('user', 'comment', 'recipe', 'likes')
+        fields = ('user', 'comment', 'recipe', 'likes', 'created_at')
 
 class GetCommentSerializer(serializers.ModelSerializer):
     reply_comment = ReplyCommentSerializer(many=True)

@@ -1,6 +1,5 @@
 from rest_framework import serializers
-from Recipe.models import Recipe, Instructions, Ingredients, RecipeVideo
-
+from recipe.models import Recipe, Instructions, Ingredients
 
 class InstructionsSerializer(serializers.ModelSerializer):
 
@@ -16,29 +15,18 @@ class IngredientsSerializer(serializers.ModelSerializer):
         fields = ('quantity','ingredient')
 
 
-class VideoSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = RecipeVideo
-        fields = 'video',
-
-
 class RecipeSerializer(serializers.ModelSerializer):
     recipes_instructions = InstructionsSerializer(many=True)
     recipes_ingredients = IngredientsSerializer(many=True)
-    recipe_video = VideoSerializer(many=True)
 
     class Meta:
         model = Recipe
-        fields = ('user','title','time','servings','recipes_instructions','recipes_ingredients', 'recipe_video')
+        fields = ('user','title','time','servings','recipes_instructions','recipes_ingredients', 'video')
 
     def create(self, validated_data):
         recipes_ingredients = validated_data.pop('recipes_ingredients')
         recipes_instructons = validated_data.pop('recipes_instructions')
-        recipe_video = validated_data.pop('recipe_video')
         recipe1 = Recipe.objects.create(**validated_data)
-        for video in recipe_video:
-            RecipeVideo.objects.create(recipe=recipe1, **video)
         for recipe2 in recipes_ingredients:
             Ingredients.objects.create(recipe=recipe1, **recipe2)
         for recipe3 in recipes_instructons:

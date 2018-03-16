@@ -15,11 +15,9 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from Comments import views
+from recipe import views
 
 urlpatterns = [
-    url(r'^recipecomment/$',views.StoreComment.as_view()),
-    url(r'^recipereplycomment/(?P<pk>[0-9]+)/$', views.ReplyCommentStore.as_view()),
-    url(r'^getcomment/(?P<pk>[0-9]+)/$', views.GetComment.as_view()),
-
+    url(r'^recipeupdate/(?P<pk>[0-9]+)/$',views.Recipe.as_view()),
+    url(r'^recipeupdate/$',views.Recipe.as_view()),
 ]

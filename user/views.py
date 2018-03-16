@@ -6,9 +6,9 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.views import APIView
 from rest_framework import status
 from rest_framework.response import Response
-from User.serializers import UsergetSerializer, UsersetSerializer
+from user.serializers import UsergetSerializer, UsersetSerializer
 from rest_framework import status
-from User.models import Users
+from user.models import Users
 from django.db import transaction
 
 class UserAuth(APIView):

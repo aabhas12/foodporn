@@ -6,13 +6,13 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.views import APIView
 from rest_framework import status
 from rest_framework.response import Response
-from Recipe.serializers import RecipeSerializer, IngredientsSerializer, InstructionsSerializer
+from recipe.serializers import RecipeSerializer, IngredientsSerializer, InstructionsSerializer
 from rest_framework import status
-from Recipe.models import Recipe
+from recipe.models import Recipe
 from rest_framework import mixins
 from rest_framework import generics
 
-class UpdateRecipe(mixins.RetrieveModelMixin, mixins.CreateModelMixin, mixins.ListModelMixin, mixins.DestroyModelMixin,
+class Recipe(mixins.RetrieveModelMixin, mixins.CreateModelMixin, mixins.ListModelMixin, mixins.DestroyModelMixin,
                    mixins.UpdateModelMixin, generics.GenericAPIView):
     queryset = Recipe.objects.all()
     serializer_class = RecipeSerializer

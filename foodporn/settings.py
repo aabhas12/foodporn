@@ -38,9 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'User.apps.UserConfig',
-    'Recipe',
-    'Comments',
+    'user',
+    'recipe',
+    'comments',
     'django_filters',
 ]
 
@@ -105,7 +105,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-AUTH_USER_MODEL = 'User.Users'
+AUTH_USER_MODEL = 'user.Users'
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/

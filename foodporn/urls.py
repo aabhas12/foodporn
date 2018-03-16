@@ -15,13 +15,13 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from User import views
+from user import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    # url(r'^recipesave/',views.Recipe.as_view()),
+    # url(r'^recipesave/',views.recipe.as_view()),
     # url(r'^recipeupdate/(?P<pk>[0-9]+)/$',views.updaterecipe.as_view()),
-    # url(r'^user/', include('User.urls')),
-    url(r'^recipe/', include('Recipe.urls')),
-    url(r'^comment/', include('Comments.urls')),
+    # url(r'^user/', include('user.urls')),
+    url(r'^recipe/', include('recipe.urls')),
+    url(r'^comment/', include('comments.urls')),
 ]
