@@ -145,6 +145,12 @@ class RecipeTest(TestCase):
         )
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
+    def test_valid_delete_recipe(self):
+        response = self.client.delete(
+            reverse('recipe', kwargs={'pk': self.first_recipe.pk}))
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
+
 
 
 
