@@ -11,6 +11,7 @@ import datetime
 class Recipe(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     title = models.CharField(max_length=250)
+    description = models.CharField(max_length=250, null=True, blank=True)
     time = models.FloatField()
     servings = models.IntegerField()
     icon = models.ImageField(null=True)

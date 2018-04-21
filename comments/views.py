@@ -1,39 +1,44 @@
-
 from django.shortcuts import render
 
 # Create your views here.
 from rest_framework import mixins
 from rest_framework import generics
 from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.response import Response
+from rest_framework_swagger import renderers
+from drf_openapi.utils import view_config
+
 from comments.Filters import CommentByRecipe, ReplyCommentByComment
 from comments.models import Comment, ReplyComment
-from comments.serializers import CommentSerializer, ReplyCommentSerializer
+from comments.serializers import CommentSerializer, ReplyCommentSerializer, GetCommentSerializer
 from rest_framework.filters import OrderingFilter
 
 
-class StoreComment(mixins.CreateModelMixin, mixins.ListModelMixin, mixins.RetrieveModelMixin, mixins.UpdateModelMixin,
+class GetComment(mixins.CreateModelMixin, mixins.ListModelMixin, mixins.RetrieveModelMixin, mixins.UpdateModelMixin,
                    generics.GenericAPIView):
     queryset = Comment.objects.all()
-    serializer_class = CommentSerializer
+    serializer_class = GetCommentSerializer
+    filter_backends = (CommentByRecipe, OrderingFilter)
+    ordering = ('-created_at',)
 
-    def post(self, request, *args, **kwargs):
-        return self.create(request, *args, **kwargs)
-
+    @view_config(response_serializer=GetCommentSerializer)
     def get(self, request, *args, **kwargs):
-        return self.retrieve(request, *args, **kwargs)
+        response = self.list(request, *args, **kwargs)
+        return Response(data=response.data, status=response.status_code)
 
     def patch(self, request, *args, **kwargs):
         return self.partial_update(request, *args, **kwargs)
 
 
-class GetComment(mixins.ListModelMixin, generics.GenericAPIView):
+class StoreComment(mixins.CreateModelMixin, generics.GenericAPIView):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
     filter_backends = (CommentByRecipe, OrderingFilter)
     ordering = ('-created_at',)
 
-    def get(self, request, *args, **kwargs):
-        return self.list(request, *args, **kwargs)
+    def post(self, request, *args, **kwargs):
+        response = self.create(request, *args, **kwargs)
+        return Response(data=response.data, status=response.status_code)
 
 
 class ReplyCommentStore(mixins.CreateModelMixin, mixins.ListModelMixin, mixins.UpdateModelMixin, generics.GenericAPIView):

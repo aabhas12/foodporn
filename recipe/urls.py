@@ -18,6 +18,6 @@ from django.contrib import admin
 from recipe import views
 
 urlpatterns = [
-    url(r'^recipeupdate/(?P<pk>[0-9]+)/$',views.Recipe.as_view()),
-    url(r'^recipeupdate/$',views.Recipe.as_view()),
+    url(r'^recipeupdate/(?P<pk>[0-9]+)/$',views.Recipe.as_view(), name="recipe"),
+    url(r'^recipeupdate/$',views.Recipe.as_view(), name="get_recipes"),
 ]
