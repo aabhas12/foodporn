@@ -30,7 +30,4 @@ tinify==1.5.1
 language-check==1.1
 django-daguerre==2.2.3
 language-tool==0.3
-python-dotenv
-django-extensions==2.0.6
-django-webpack-loader==0.6.0
 pillow==5.2.0
