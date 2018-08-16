@@ -10,7 +10,6 @@ reportlab==3.3.0
 html5lib==1.0b10
 boto3==1.4.4
 django-smartfields==1.0.9
-django-user-agents-last==0.3.1
 python-memcached==1.58
 django-daguerre==2.2.3
 pillow==5.2.0
