@@ -29,5 +29,4 @@ slackclient==1.0.9
 tinify==1.5.1
 language-check==1.1
 django-daguerre==2.2.3
-language-tool==0.3
 pillow==5.2.0
