@@ -1,4 +1,4 @@
-django==2.1
+django==1.11.15
 psycopg2
 pandas==0.19.2
 numpy==1.11.3
