@@ -5,7 +5,6 @@ from rest_framework import mixins
 from rest_framework import generics
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.response import Response
-from rest_framework_swagger import renderers
 from drf_openapi.utils import view_config
 
 from comments.Filters import CommentByRecipe, ReplyCommentByComment
