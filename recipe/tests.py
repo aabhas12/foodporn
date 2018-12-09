@@ -104,6 +104,7 @@ class RecipeTest(TestCase):
                               description="sadsasd")
 
 
+
     def test_get_all_recipes(self):
         response = self.client.get(reverse("get_recipes"))
         recipes = Recipe.objects.all()
