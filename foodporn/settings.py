@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+import django
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
@@ -42,7 +44,21 @@ INSTALLED_APPS = [
     'recipe',
     'comments',
     'django_filters',
+    # 'rest_framework_swagger',
+    'drf_openapi',
 ]
+
+REDOC_SETTINGS = {
+    # ReDoc UI configuration settings, see https://github.com/Rebilly/ReDoc#redoc-tag˓→attributes
+    'LAZY_RENDERING': True,
+    'HIDE_HOSTNAME': False,
+    'EXPAND_RESPONSES': 'all',
+    'PATH_IN_MIDDLE': False,
+}
+
+REST_FRAMEWORK = {
+    'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.URLPathVersioning'
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

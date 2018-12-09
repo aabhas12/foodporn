@@ -12,7 +12,7 @@ from user.models import Users
 from django.db import transaction
 
 class UserAuth(APIView):
-    def get(self,request,pk):
+    def get(self, request, pk):
         if Users.objects.filter(social_media_id=pk).exists():
             user = Users.objects.filter(social_media_id=pk)
             serialize = UsergetSerializer(user)
@@ -20,7 +20,7 @@ class UserAuth(APIView):
         else:
             return Response(status=status.HTTP_401_UNAUTHORIZED)
 
-    def post(self,request):
+    def post(self, request):
         serialize = UsersetSerializer(data=request.data)
         if serialize.is_valid():
             serialize.save()

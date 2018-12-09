@@ -35,6 +35,8 @@ from user import views
 #    public=True,
 #    permission_classes=(permissions.AllowAny,),
 # )
+from django.conf.urls.static import static
+from django.conf import settings
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -43,4 +45,4 @@ urlpatterns = [
     # url(r'^user/', include('user.urls')),
     url(r'^recipe/', include('recipe.urls')),
     url(r'^comment/', include('comments.urls')),
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
