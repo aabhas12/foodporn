@@ -25,6 +25,8 @@ class Recipe(models.Model):
         return self.comment_set.all()
 
 
+
+
 class Ingredients(models.Model):
     recipe = models.ForeignKey(Recipe, related_name='recipes_ingredients', on_delete=models.CASCADE)
     ingredient = models.CharField(max_length=75)
