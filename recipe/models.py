@@ -26,11 +26,11 @@ class Recipe(models.Model):
 
 
 
-#
-# class Ingredients(models.Model):
-#     recipe = models.ForeignKey(Recipe, related_name='recipes_ingredients', on_delete=models.CASCADE)
-#     ingredient = models.CharField(max_length=75)
-#     quantity = models.FloatField()
+
+class Ingredients(models.Model):
+    recipe = models.ForeignKey(Recipe, related_name='recipes_ingredients', on_delete=models.CASCADE)
+    ingredient = models.CharField(max_length=75)
+    quantity = models.FloatField()
 
 
 class Instructions(models.Model):
